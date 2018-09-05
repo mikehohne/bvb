@@ -3,7 +3,7 @@ import Roster from '../classes/roster';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import Player from '../classes/player';
-import config from '../config';
+import config from '../../config';
 
 const Admin = {};
 
@@ -39,7 +39,7 @@ Admin.register = async (req, res) => {
 Admin.find = async (req, res) => {
     const { username } = req.params;
     const { password } = req.query;
-    
+
     const token = req.headers['x-access-token'];
     if (!token) {
         res.status(401).json({
