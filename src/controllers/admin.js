@@ -3,7 +3,7 @@ import Roster from '../classes/roster';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import Player from '../classes/player';
-import config from '../../config';
+import config from '../config';
 
 const Admin = {};
 
@@ -40,7 +40,7 @@ Admin.find = async (req, res) => {
     const { username } = req.params;
     const { password } = req.query;
 
-    const token = req.headers['x-access-token'];
+    const token = req.token;
     if (!token) {
         res.status(401).json({
             auth: false,
@@ -48,20 +48,31 @@ Admin.find = async (req, res) => {
         })
     }
 
-    jwt.verify(token, config.jwt.secret, (err, decoded) => {
-        if(err) {
-            res.status(500).json({
-                auth: false,
-                message: 'Failed to authenticate token'
-            })
-        }
-    })
-
     try {
         const admin = await db.Admin.findOne({ username });
-        res.status(200).json({
-            data: admin
+        const passwordsMatch = bcrypt.compareSync(password, admin.hashedPassword);
+
+        if (passwordsMatch) {
+            let decodedToken;
+            jwt.verify(token, config.jwt.secret, (err, decoded) => {
+                if(err) {
+                    res.status(500).json({
+                        auth: false,
+                        message: 'Failed to authenticate token'
+                    })
+                }
+                decodedToken = decoded;
+            })
+            res.status(200).json({
+                data: admin,
+                token: decodedToken
+            })
+        }
+
+        res.status(401).json({
+            message: 'User not found'
         })
+        
     } catch (error) {
         res.status(200).json({
             message: error.errmsg

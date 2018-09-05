@@ -9,6 +9,8 @@ validation.verifyToken = async (req, res, next) => {
             message: 'forbidden'
         })
     }
+    req.token = token;
+    next();
 }
 
 

@@ -14,6 +14,6 @@ routes.get('/', (req, res) => {
 routes.post('/admin/register/', admin.register);
 routes.get('/admin/:username', validation.verifyToken, admin.find);
 routes.get('/admin/roster', admin.getRoster);
-routes.post('/admin/createplayer', admin.createPlayer);
+routes.post('/admin/createplayer', validation.verifyToken, admin.createPlayer);
 
 export default routes;
