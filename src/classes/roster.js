@@ -17,7 +17,6 @@ class Roster {
 
     // Creates roster by admin
     async create(data) {
-        console.log(data);
         const roster = new db.Roster(data)
         try {
             return await roster.save();
@@ -29,7 +28,9 @@ class Roster {
     // Find roster by id
     async findById(id) {
         try {
-            return await db.Roster.findById(id);
+            return await db.Roster.findById(id)
+            .populate('startingEleven')
+            .populate('substitutes')
         } catch (error) {
             throw Error(error);
         }

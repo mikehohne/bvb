@@ -21,6 +21,6 @@ routes.post('/admin/roster/:id/update', admin.findRosterByIdAndUpdate);
 
 routes.get('/admin/player/:id', admin.findPlayerById);
 routes.post('/admin/player/create', admin.createPlayer);
-routes.post('/admin/player/update/:id', admin.findPlayerAndUpdateById);
+routes.post('/admin/player/:id/update', admin.findPlayerAndUpdateById);
 
 export default routes;
