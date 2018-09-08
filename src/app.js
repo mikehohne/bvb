@@ -23,5 +23,10 @@ app.use(bodyParser.json());
 
 // Base Api
 app.use('/api', routes);
+app.use('/public', (req,res) => {
+    res.json({
+        message: "Welcome User"
+    })
+})
 
 export default app;

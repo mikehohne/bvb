@@ -1,3 +1,4 @@
 import Admin from './Admin';
 import Player from './Player';
-export default { Admin, Player };
+import Roster from './Roster';
+export default { Admin, Player, Roster };

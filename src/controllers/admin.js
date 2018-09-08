@@ -1,7 +1,9 @@
-import db from './../models';
-import Roster from '../classes/roster';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
+import moment from 'moment';
+
+import db from './../models';
+import Roster from '../classes/roster';
 import Player from '../classes/player';
 import config from '../config';
 
@@ -49,10 +51,11 @@ Admin.find = async (req, res) => {
     }
 
     try {
-        const admin = await db.Admin.findOne({ username });
+        const admin = await db.Admin.findOne({ username: username }, { username: 1, _id: 1, hashedPassword: 1 });
         const passwordsMatch = bcrypt.compareSync(password, admin.hashedPassword);
-
+        
         if (passwordsMatch) {
+            admin.hashedPassword = "0";
             let decodedToken;
             jwt.verify(token, config.jwt.secret, (err, decoded) => {
                 if(err) {
@@ -70,7 +73,7 @@ Admin.find = async (req, res) => {
         }
 
         res.status(401).json({
-            message: 'User not found'
+            message: 'User or password were not found'
         })
         
     } catch (error) {
@@ -81,29 +84,90 @@ Admin.find = async (req, res) => {
 
 }
 
+/*************************** */
+/* PLAYER CONTROLLER (Admin) */
+/*************************** */
 Admin.createPlayer = async (req, res) => {
-    const { firstname, lastname } = req.body;
+    const data = req.body;
     const player = new Player();
     try {
-        const newPlayer = await player.create(firstname, lastname);
-        res.status(200).json({
-            data: newPlayer
-        })
+        const newPlayer = await player.create(data);
+        res.status(200).json({ data: newPlayer })
     } catch (error) {
         throw error;
     }
     
 }
-
-Admin.getRoster = async (req, res) => {
-    const roster = new Roster();
+Admin.findPlayerById = async (req, res) => {
+    const { id } = req.params;
+    const p = new Player();
     try {
-        const r = await roster.get();
-        console.log(r);
-        res.status(200).json({ data: r })
+        const player = await p.findById(id);
+        res.status(200).json({ data: player })
     } catch (error) {
-        console.log(error);
+        throw Error(error);
     }
 }
+
+Admin.findPlayerAndUpdateById = async (req,res) => {
+    const data = req.body;
+    const id = req.params.id;
+    const p = new Player();
+    try {
+        const updatedPlayer = await p.findByIdUpdate(id, data);
+        res.status(200).json({ data: updatedPlayer })
+    } catch (error) {
+        throw Error(error);
+    }
+}
+
+/*************************** */
+/* ROSTER CONTROLLER (Admin) */
+/*************************** */
+Admin.createRoster = async (req, res) => {
+    const data = req.body;
+    const r = new Roster();
+    try {
+        const newRoster = await r.create(data);
+        res.status(200).json({ data: newRoster });
+    } catch (error) {
+        throw Error(error);
+    }
+}
+
+Admin.findRoster = async (req, res) => {
+    const r = new Roster();
+    try {
+        const roster = await r.find();
+        res.status(200).json({ data: roster })
+    } catch (error) {
+        throw Error(error);
+    }
+}
+
+Admin.findRosterById = async (req, res) => {
+    const { id } = req.params;
+    const r = new Roster();
+    try {
+        const roster = await r.findById(id);
+        res.status(200).json({ data: roster })
+    } catch (error) {
+        throw Error(error);
+    }
+}
+
+Admin.findRosterByIdAndUpdate = async (req, res) => {
+    const { id } = req.params;
+    const data = req.body;
+    const r = new Roster();
+    try {
+        const updatedRoster = await r.findByIdAndUpdate(id, data);
+        res.status(200).json({ data: updatedRoster })
+    } catch (error) {
+        throw Error(error);
+    }
+}
+
+
 
 export default Admin;

@@ -12,8 +12,15 @@ routes.get('/', (req, res) => {
 });
 
 routes.post('/admin/register/', admin.register);
-routes.get('/admin/:username', validation.verifyToken, admin.find);
-routes.get('/admin/roster', admin.getRoster);
-routes.post('/admin/createplayer', validation.verifyToken, admin.createPlayer);
+routes.get('/admin/user/:username/', admin.find);
+
+routes.get('/admin/roster/', admin.findRoster);
+routes.post('/admin/roster/create', admin.createRoster);
+routes.get('/admin/roster/:id', admin.findRosterById);
+routes.post('/admin/roster/:id/update', admin.findRosterByIdAndUpdate);
+
+routes.get('/admin/player/:id', admin.findPlayerById);
+routes.post('/admin/player/create', admin.createPlayer);
+routes.post('/admin/player/update/:id', admin.findPlayerAndUpdateById);
 
 export default routes;
