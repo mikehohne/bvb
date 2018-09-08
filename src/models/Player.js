@@ -3,16 +3,18 @@ import moment from 'moment';
 
 // Player schema
 const playerSchema = new Schema({
-    firstName: { type: String, required: true, unique: true },
+    firstName: { type: String, required: true },
     lastName: { type: String, required: true },
-    active: Boolean,
-    position: String,
-    nationality: String,
-    number: Number,
+    active: { type: Boolean },
+    position: { type: String },
+    nationality: { type: String },
+    number: { type: Number },
     dateAdded: { type: Date, default: moment.now() },
-    dateOfBirth: Date,
+    dateOfBirth: { type: Date },
     dateModified: { type: Date },
-    bio: String
+    bio: { type: String },
+    image: { type: String },
+    transactions: [{ type: String }]
 })
 
 const Player = mongoose.model('Player', playerSchema);

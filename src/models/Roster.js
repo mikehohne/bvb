@@ -7,9 +7,9 @@ const rosterSchema = new Schema({
     substitutes: [{ type: Schema.Types.ObjectId, ref: 'Player'}],
     createdBy: { type: String, required: true },
     manager: { type: String, required: true },
-    formation: String,
-    gameTime: { type: Date, required: true },
-    gameType: { type: String, required: true },
+    formation: { type: String },
+    matchTime: { type: Date, required: true },
+    matchType: { type: String, required: true },
     dateCreated: { type: Date, default: moment.now() },
     dateModified: { type: Date }
 })

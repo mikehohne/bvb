@@ -1,5 +1,3 @@
-
-
 const validation = {};
 
 validation.verifyToken = async (req, res, next) => {
