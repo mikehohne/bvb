@@ -1,10 +1,10 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
-import moment from 'moment';
 
 import db from './../models';
 import Roster from '../classes/roster';
 import Player from '../classes/player';
+import Match from '../classes/match';
 import config from '../config';
 
 const Admin = {};
@@ -168,6 +168,52 @@ Admin.findRosterByIdAndUpdate = async (req, res) => {
     }
 }
 
+/*************************** */
+/* MATCH CONTROLLER (Admin) */
+/*************************** */
+Admin.createMatch = async (req, res) => {
+    const data = req.body;
+    const m = new Match();
+    try {
+        const newMatch = await m.create(data);
+        res.status(200).json({ data: newMatch });
+    } catch (error) {
+        throw Error(error);
+    }
+}
+
+Admin.findMatch = async (req, res) => {
+    const m = new Match();
+    try {
+        const match = await m.find();
+        res.status(200).json({ data: match })
+    } catch (error) {
+        throw Error(error);
+    }
+}
+
+Admin.findMatchById = async (req, res) => {
+    const { id } = req.params;
+    const m = new Match();
+    try {
+        const match = await m.findById(id);
+        res.status(200).json({ data: match })
+    } catch (error) {
+        throw Error(error);
+    }
+}
+
+Admin.findMatchByIdAndUpdate = async (req, res) => {
+    const { id } = req.params;
+    const data = req.body;
+    const m = new Match();
+    try {
+        const updatedMatch = await m.findByIdAndUpdate(id, data);
+        res.status(200).json({ data: updatedMatch })
+    } catch (error) {
+        throw Error(error);
+    }
+}
 
 
 export default Admin;
