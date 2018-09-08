@@ -26,6 +26,6 @@ routes.post('/admin/player/:id/update', admin.findPlayerAndUpdateById);
 routes.get('/admin/match', admin.findMatch);
 routes.get('/admin/match/:id', admin.findMatchById);
 routes.post('/admin/match', admin.createMatch);
-routes.get('/admin/match/:id/update', admin.findMatchByIdAndUpdate);
+routes.post('/admin/match/:id/update', admin.findMatchByIdAndUpdate);
 
 export default routes;

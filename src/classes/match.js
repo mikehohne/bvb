@@ -24,9 +24,8 @@ class Match {
 
     async findById(id) {
         try {
-            return await db.Roster.findById(id)
-            .populate('startingEleven')
-            .populate('substitutes')
+            return await db.Match.findById(id)
+            .populate('roster')
         } catch (error) {
             throw Error(error);
         }
@@ -34,7 +33,7 @@ class Match {
 
     async findByIdAndUpdate(id, data) {
         try {
-            return await db.Roster.findByIdAndUpdate(id, data, { new: true });
+            return await db.Match.findByIdAndUpdate(id, data, { new: true });
         } catch (error) {
             throw Error(error);
         }
