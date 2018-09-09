@@ -1,6 +1,8 @@
 import mongoose, { Schema } from 'mongoose';
 import moment from 'moment';
 
+mongoose.set('useCreateIndex', true)
+
 // Player schema
 const playerSchema = new Schema({
 	firstName: { type: String, required: true },

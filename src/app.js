@@ -10,9 +10,14 @@ import config from './config';
 // initialize env vars
 dotenv.config();
 
-mongoose.connect(config.db.connString, err => {
-	if(err) throw Error(err);
+const server = mongoose.connect(config.db.connString, {
+	useNewUrlParser: true 
 });
+server.catch((err) => {
+	throw Error(err);
+});
+mongoose.set('useCreateIndex', true)
+
 const app = express();
 
 // Middleware

@@ -1,6 +1,8 @@
 import mongoose, { Schema } from 'mongoose';
 import moment from 'moment';
 
+mongoose.set('useCreateIndex', true)
+
 // Roster schema
 const rosterSchema = new Schema({
 	startingEleven: [{ type: Schema.Types.ObjectId, ref: 'Player'}],

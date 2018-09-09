@@ -1,6 +1,8 @@
 import mongoose, { Schema } from 'mongoose';
 import moment from 'moment';
 
+mongoose.set('useCreateIndex', true);
+
 // Player schema
 const matchSchema = new Schema({
 	home: Boolean,
