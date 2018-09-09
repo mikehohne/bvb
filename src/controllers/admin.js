@@ -21,9 +21,7 @@ Admin.register = async (req, res) => {
     try {
         const newAdmin = await admin.save();
 
-        const token = jwt.sign({id: newAdmin._id}, config.jwt.secret, {
-            expiresIn: 86400
-        });
+        const token = jwt.sign({ id: newAdmin._id}, config.jwt.secret, {expiresIn: 86400 });
 
         res.status(200).json({
             data: newAdmin,
