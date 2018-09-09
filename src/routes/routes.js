@@ -23,9 +23,14 @@ routes.get('/admin/player/:id', validation.verifyToken, admin.findPlayerById);
 routes.post('/admin/player/create', validation.verifyToken, admin.createPlayer);
 routes.post('/admin/player/:id/update', validation.verifyToken, admin.findPlayerAndUpdateById);
 
-routes.get('/admin/match', validation.verifyToken, admin.findMatch);
+routes.get('/admin/match/', validation.verifyToken, admin.findMatch);
 routes.get('/admin/match/:id', validation.verifyToken, admin.findMatchById);
-routes.post('/admin/match', validation.verifyToken, admin.createMatch);
+routes.post('/admin/match/', validation.verifyToken, admin.createMatch);
 routes.post('/admin/match/:id/update', validation.verifyToken, admin.findMatchByIdAndUpdate);
+
+routes.get('/admin/stats/', validation.verifyToken, admin.findStats);
+routes.get('/admin/stats/:id', validation.verifyToken, admin.findStatsById);
+routes.post('/admin/stats/', validation.verifyToken, admin.createStats);
+routes.post('/admin/stats/:id/update', validation.verifyToken, admin.findStatsByIdAndUpdate);
 
 export default routes;

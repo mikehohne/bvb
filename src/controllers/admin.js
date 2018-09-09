@@ -5,6 +5,7 @@ import db from './../models';
 import Roster from '../classes/roster';
 import Player from '../classes/player';
 import Match from '../classes/match';
+import Stats from '../classes/stats';
 import config from '../config';
 
 const Admin = {};
@@ -213,5 +214,54 @@ Admin.findMatchByIdAndUpdate = async (req, res) => {
 	}
 };
 
+/*************************** */
+/* STATS CONTROLLER (Admin) */
+/*************************** */
+Admin.createStats = async (req, res) => {
+	const data = req.body;
+	const s = new Stats();
+	try {
+		const updatedMatch = await s.create(data);
+		res.status(200).json({ data: updatedMatch });
+	} catch (error) {
+		throw Error(error);
+	}
+};
+
+Admin.findStats = async (req, res) => {
+	const { id } = req.params;
+	const data = req.body;
+	const s = new Stats();
+	try {
+		const updatedMatch = await s.find(id, data);
+		res.status(200).json({ data: updatedMatch });
+	} catch (error) {
+		throw Error(error);
+	}
+};
+
+Admin.findStatsById = async (req, res) => {
+	const { id } = req.params;
+	const data = req.body;
+	const s = new Stats();
+	try {
+		const updatedMatch = await s.findById(id, data);
+		res.status(200).json({ data: updatedMatch });
+	} catch (error) {
+		throw Error(error);
+	}
+};
+
+Admin.findStatsByIdAndUpdate = async (req, res) => {
+	const { id } = req.params;
+	const data = req.body;
+	const s = new Stats();
+	try {
+		const updatedMatch = await s.findByIdAndUpdate(id, data);
+		res.status(200).json({ data: updatedMatch });
+	} catch (error) {
+		throw Error(error);
+	}
+};
 
 export default Admin;
