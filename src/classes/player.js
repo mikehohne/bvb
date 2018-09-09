@@ -15,6 +15,15 @@ class Player {
 		}
 	}
 
+	async find(query) {
+		const q = query || {};
+		try {
+			return await db.Player.find(q);
+		} catch (error) {
+			throw Error(error);
+		}
+	}
+
 	// finds a player by id
 	async findById(id) {
 		try {
