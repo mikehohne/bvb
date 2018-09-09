@@ -12,20 +12,20 @@ routes.get('/', (req, res) => {
 });
 
 routes.post('/admin/register/', admin.register);
-routes.get('/admin/user/:username/', admin.find);
+routes.get('/admin/user/:username/', validation.verifyToken, admin.find);
 
-routes.get('/admin/roster/', admin.findRoster);
-routes.post('/admin/roster/create', admin.createRoster);
-routes.get('/admin/roster/:id', admin.findRosterById);
-routes.post('/admin/roster/:id/update', admin.findRosterByIdAndUpdate);
+routes.get('/admin/roster/', validation.verifyToken, admin.findRoster);
+routes.post('/admin/roster/create', validation.verifyToken, admin.createRoster);
+routes.get('/admin/roster/:id', validation.verifyToken, admin.findRosterById);
+routes.post('/admin/roster/:id/update', validation.verifyToken, admin.findRosterByIdAndUpdate);
 
-routes.get('/admin/player/:id', admin.findPlayerById);
-routes.post('/admin/player/create', admin.createPlayer);
-routes.post('/admin/player/:id/update', admin.findPlayerAndUpdateById);
+routes.get('/admin/player/:id', validation.verifyToken, admin.findPlayerById);
+routes.post('/admin/player/create', validation.verifyToken, admin.createPlayer);
+routes.post('/admin/player/:id/update', validation.verifyToken, admin.findPlayerAndUpdateById);
 
-routes.get('/admin/match', admin.findMatch);
-routes.get('/admin/match/:id', admin.findMatchById);
-routes.post('/admin/match', admin.createMatch);
-routes.post('/admin/match/:id/update', admin.findMatchByIdAndUpdate);
+routes.get('/admin/match', validation.verifyToken, admin.findMatch);
+routes.get('/admin/match/:id', validation.verifyToken, admin.findMatchById);
+routes.post('/admin/match', validation.verifyToken, admin.createMatch);
+routes.post('/admin/match/:id/update', validation.verifyToken, admin.findMatchByIdAndUpdate);
 
 export default routes;
