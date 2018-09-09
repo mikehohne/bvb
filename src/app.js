@@ -11,7 +11,7 @@ import config from './config';
 dotenv.config();
 
 mongoose.connect(config.db.connString, err => {
-	if(err) throw Error(err);	
+	if(err) throw Error(err);
 });
 const app = express();
 

@@ -17,7 +17,7 @@ class Player {
 
 	// finds a player by id
 	async findById(id) {
-		try {            
+		try {
 			return await db.Player.findById(id);
 		} catch (error) {
 			throw Error(error);
