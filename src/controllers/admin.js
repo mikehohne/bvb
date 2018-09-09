@@ -1,26 +1,22 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
-
-import db from './../models';
 import Roster from '../classes/roster';
 import Player from '../classes/player';
 import Match from '../classes/match';
 import Stats from '../classes/stats';
+import User from '../classes/user';
 import config from '../config';
 
 const Admin = {};
 
 Admin.register = async (req, res) => {
+	const data = {};
 	const { username, password } = req.body;
-	const hashedPassword = bcrypt.hashSync(password);
-
-	const admin = new db.Admin({
-		username,
-		hashedPassword
-	});
-
+	data.username = username;
+	data.hashedPassword = bcrypt.hashSync(password);
 	try {
-		const newAdmin = await admin.save();
+		const u = new User();
+		const newAdmin = await u.create(data)
 
 		const token = jwt.sign({ id: newAdmin._id}, config.jwt.secret, {expiresIn: 86400 });
 
@@ -29,19 +25,17 @@ Admin.register = async (req, res) => {
 			auth: true,
 			token: token
 		});
-    
 	} catch (error) {
-		res.status(500).json({
-			message: error.errmsg
-		});
+		throw Error(error);
 	}
 };
 
-Admin.find = async (req, res) => {
+Admin.findOneUser = async (req, res) => {
+	const data = {};
 	const { username } = req.params;
 	const { password } = req.query;
-
 	const token = req.token;
+	
 	if (!token) {
 		res.status(401).json({
 			auth: false,
@@ -49,36 +43,27 @@ Admin.find = async (req, res) => {
 		});
 	}
 
+	data.username = username;
+	data.password = password;
+	data.token = token;
+
 	try {
-		const admin = await db.Admin.findOne({ username: username }, { username: 1, _id: 1, hashedPassword: 1 });
-		const passwordsMatch = bcrypt.compareSync(password, admin.hashedPassword);
-        
-		if (passwordsMatch) {
-			admin.hashedPassword = '0';
-			let decodedToken;
-			jwt.verify(token, config.jwt.secret, (err, decoded) => {
-				if(err) {
-					res.status(500).json({
-						auth: false,
-						message: 'Failed to authenticate token'
-					});
-				}
-				decodedToken = decoded;
+		const u = new User();
+		const user = await u.findOne(data);
+		if (user.error) {
+			res.status(401).json({
+				message: 'User or password were not found',
+				development: user.error
 			});
+		} else {
 			res.status(200).json({
-				data: admin,
-				token: decodedToken
+				data: user.data,
+				token: user.token,
+				auth: true
 			});
 		}
-
-		res.status(401).json({
-			message: 'User or password were not found'
-		});
-        
 	} catch (error) {
-		res.status(200).json({
-			message: error.errmsg
-		});
+		throw Error(error);
 	}
 
 };

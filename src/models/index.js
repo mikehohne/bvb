@@ -1,6 +1,7 @@
-import Admin from './Admin';
+import User from './User';
 import Player from './Player';
 import Roster from './Roster';
 import Match from './Match';
 import Stats from './Stats';
-export default { Admin, Player, Roster, Match, Stats };
+
+export default { User, Player, Roster, Match, Stats };
