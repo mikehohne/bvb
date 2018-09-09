@@ -17,8 +17,8 @@ class Roster {
 
 	// Creates roster by admin
 	async create(data) {
-		const roster = new db.Roster(data);
 		try {
+			const roster = new db.Roster(data);
 			return await roster.save();
 		} catch (error) {
 			throw Error(error);

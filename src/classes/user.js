@@ -10,11 +10,18 @@ class User {
 
 	// creates a new User
 	async create(data) {
-		const user = new db.User(data);
+		const errorObj = {};
 		try {
+			const user = new db.User(data);
 			return await user.save();
 		} catch (error) {
-			throw Error(error);
+			if(error.code === 11000) {
+				errorObj.fail = true;
+				errorObj.message = 'This username already exists';
+				return errorObj;
+			} else {
+				throw Error(error);
+			}
 		}
 	}
     
