@@ -6,10 +6,10 @@ import User from '../classes/user';
 const user = {};
 
 user.register = async (req, res) => {
-    const { username, password } = req.body;
-    const data = {};
+	const { username, password } = req.body;
+	const data = {};
 	data.username = username;
-    data.hashedPassword = bcrypt.hashSync(password);
+	data.hashedPassword = bcrypt.hashSync(password);
 	try {
 		const u = new User();
 		const newUser = await u.create(data);
@@ -26,7 +26,7 @@ user.register = async (req, res) => {
 			});
 		}
 	} catch (error) {
-		console.log(error);
+		throw Error(error);
 	}
 };
 

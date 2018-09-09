@@ -4,4 +4,4 @@ import player from '../controllers/playerController';
 import match from '../controllers/matchController';
 import stats from '../controllers/statsController';
 
-export default {user, roster, player, match, stats }
+export default {user, roster, player, match, stats };
