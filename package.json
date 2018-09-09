@@ -8,7 +8,7 @@
     "start": "npm run build && nodemon ./lib/index.js",
     "web": "cd ./public && ng build --watch",
     "test": "npm run build && mocha -- ./lib/test/*.test.js --exit",
-    "lint": "eslint src --ignore-pattern *.test.js"
+    "lint": "eslint src/* --fix"
   },
   "author": "",
   "license": "ISC",
@@ -21,6 +21,7 @@
     "body-parser": "^1.18.3",
     "cors": "^2.8.4",
     "crypto-price": "0.0.6",
+    "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "express-session": "^1.15.6",
     "hammerjs": "^2.0.8",
