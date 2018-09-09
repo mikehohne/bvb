@@ -12,7 +12,7 @@ routes.get('/', (req, res) => {
 });
 
 routes.post('/admin/register/', admin.register);
-routes.get('/admin/user/:username/', validation.verifyToken, admin.find);
+routes.get('/admin/user/:username', validation.verifyToken, admin.findOneUser);
 
 routes.get('/admin/roster/', validation.verifyToken, admin.findRoster);
 routes.post('/admin/roster/create', validation.verifyToken, admin.createRoster);

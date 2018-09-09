@@ -4,12 +4,12 @@ import moment from 'moment';
 mongoose.set('useCreateIndex', true)
 
 
-const adminSchema = new Schema({
+const userSchema = new Schema({
 	username: { type: String, required: true, unique: true },
 	hashedPassword: { type: String, required: true },
 	dateCreated: { type: Date, default: moment.now() }
 });
 
-const User = mongoose.model('Admin', adminSchema);
+const User = mongoose.model('User', userSchema);
 
 export default User;
