@@ -16,38 +16,38 @@ class User {
 		} catch (error) {
 			throw Error(error);
 		}
-    }
+	}
     
-    async findOne(data) {
-        const resultObj = {};
-        const { username, password, token}  = data
-        try {
-            const user = await db.User.findOne({ username: username }, { username: 1, _id: 1, hashedPassword: 1 });
-            if(!user) {
-                return null;
-            }
-            const passwordsMatch = bcrypt.compareSync(password, user.hashedPassword);
-            if (passwordsMatch) {
-                user.hashedPassword = '0';
-                let decodedToken;
-                jwt.verify(token, config.jwt.secret, (err, decoded) => {
+	async findOne(data) {
+		const resultObj = {};
+		const { username, password, token}  = data;
+		try {
+			const user = await db.User.findOne({ username: username }, { username: 1, _id: 1, hashedPassword: 1 });
+			if(!user) {
+				return null;
+			}
+			const passwordsMatch = bcrypt.compareSync(password, user.hashedPassword);
+			if (passwordsMatch) {
+				user.hashedPassword = '0';
+				let decodedToken;
+				jwt.verify(token, config.jwt.secret, (err, decoded) => {
                     
-                    if(err) {
-                        resultObj.error = 'The user token is not valid';
-                        return resultObj;
-                    }
-                    decodedToken = decoded;
-                });
-                resultObj.data = user;
-                resultObj.token = decodedToken;
+					if(err) {
+						resultObj.error = 'The user token is not valid';
+						return resultObj;
+					}
+					decodedToken = decoded;
+				});
+				resultObj.data = user;
+				resultObj.token = decodedToken;
                 
-                return resultObj;
-            }
+				return resultObj;
+			}
 
-        } catch (error) {
-            throw Error(error);
-        }
-    }
+		} catch (error) {
+			throw Error(error);
+		}
+	}
 
 	// finds a User by id
 	async findById(id) {

@@ -29,8 +29,8 @@ class Stats {
 	async findById(id) {
 		try {
 			return await db.Stats.findById(id)
-			.populate('player')
-			.populate('match');
+				.populate('player')
+				.populate('match');
 		} catch (error) {
 			throw Error(error);
 		}

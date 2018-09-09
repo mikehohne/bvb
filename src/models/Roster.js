@@ -1,7 +1,7 @@
 import mongoose, { Schema } from 'mongoose';
 import moment from 'moment';
 
-mongoose.set('useCreateIndex', true)
+mongoose.set('useCreateIndex', true);
 
 // Roster schema
 const rosterSchema = new Schema({

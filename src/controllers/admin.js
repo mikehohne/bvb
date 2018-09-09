@@ -16,7 +16,7 @@ Admin.register = async (req, res) => {
 	data.hashedPassword = bcrypt.hashSync(password);
 	try {
 		const u = new User();
-		const newAdmin = await u.create(data)
+		const newAdmin = await u.create(data);
 
 		const token = jwt.sign({ id: newAdmin._id}, config.jwt.secret, {expiresIn: 86400 });
 
