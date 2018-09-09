@@ -16,7 +16,7 @@ const server = mongoose.connect(config.db.connString, {
 server.catch((err) => {
 	throw Error(err);
 });
-mongoose.set('useCreateIndex', true)
+mongoose.set('useCreateIndex', true);
 
 const app = express();
 
