@@ -31,7 +31,6 @@ Admin.register = async (req, res) => {
 };
 
 Admin.findOneUser = async (req, res) => {
-	const data = {};
 	const { username } = req.params;
 	const { password } = req.query;
 	const token = req.token;
@@ -42,7 +41,8 @@ Admin.findOneUser = async (req, res) => {
 			message: 'No token provided'
 		});
 	}
-
+	
+	const data = {};
 	data.username = username;
 	data.password = password;
 	data.token = token;
