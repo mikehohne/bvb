@@ -5,27 +5,27 @@ import mongoose from 'mongoose';
 import routes from './routes/routes';
 import cors from 'cors';
 import config from './config';
-// const staticContentPath = 'public/dist/public';
 
-// initialize env vars
+// initialize vars
 dotenv.config();
+const staticContentPath = 'public/dist/public';
 
-const server = mongoose.connect(config.db.connString, {
-	useNewUrlParser: true 
-});
+
+const server = mongoose.connect(config.db.connString, { useNewUrlParser: true });
 server.catch((err) => {
-	throw Error(err);
+	throw new Error(err);
 });
 mongoose.set('useCreateIndex', true);
 
 const app = express();
 
 // Middleware
+app.use(express.static(staticContentPath));
 app.use(cors());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// Base Api
+// Base Apis
 app.use('/api', routes);
 app.use('/public', (req,res) => {
 	res.json({

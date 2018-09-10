@@ -16,7 +16,11 @@ const playerSchema = new Schema({
 	dateModified: { type: Date },
 	bio: { type: String },
 	image: { type: String },
-	transactions: [{ type: String }]
+	transactions: [{
+		dateCreated: Date,
+		type: String,
+		notes: String,
+	}]
 });
 
 const Player = mongoose.model('Player', playerSchema);

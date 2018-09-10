@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "rm -rf lib && babel src -d lib",
-    "start": "npm run build && nodemon ./lib/index.js --no-deprecation",
+    "start": "npm run build && nodemon ./lib/index.js",
     "web": "cd ./public && ng build --watch",
     "test": "npm run build && mocha -- ./lib/test/*.test.js --exit",
     "lint": "eslint src/* --fix"
