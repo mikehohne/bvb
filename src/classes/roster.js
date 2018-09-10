@@ -1,4 +1,7 @@
 import db from '../models';
+import Logger from '../classes/logger';
+
+const logger = new Logger("Roster query");
 
 // DAL roster class
 class Roster {
@@ -11,7 +14,7 @@ class Roster {
 		try {
 			return await db.Roster.find(q);
 		} catch (error) {
-			throw Error(error);
+			logger.log(error);
 		}
 	}
 
@@ -21,7 +24,7 @@ class Roster {
 			const roster = new db.Roster(data);
 			return await roster.save();
 		} catch (error) {
-			throw Error(error);
+			logger.log(error);
 		}
 	}
 
@@ -32,7 +35,7 @@ class Roster {
 				.populate('startingEleven')
 				.populate('substitutes');
 		} catch (error) {
-			throw Error(error);
+			logger.log(error);
 		}
 	}
 
@@ -41,7 +44,7 @@ class Roster {
 		try {
 			return await db.Roster.findByIdAndUpdate(id, data, { new: true });
 		} catch (error) {
-			throw Error(error);
+			logger.log(error);
 		}
 	}
 }

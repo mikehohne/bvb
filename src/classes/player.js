@@ -1,4 +1,7 @@
 import db from '../models';
+import Logger from '../classes/logger';
+
+const logger = new Logger("Player query");
 
 // Player dal class
 class Player {
@@ -11,7 +14,7 @@ class Player {
 		try {
 			return await player.save();
 		} catch (error) {
-			throw Error(error);
+			logger.log(error);
 		}
 	}
 
@@ -20,7 +23,7 @@ class Player {
 		try {
 			return await db.Player.find(q);
 		} catch (error) {
-			throw Error(error);
+			logger.log(error);
 		}
 	}
 
@@ -29,7 +32,7 @@ class Player {
 		try {
 			return await db.Player.findById(id);
 		} catch (error) {
-			throw Error(error);
+			logger.log(error);
 		}
 	}
 
@@ -38,7 +41,7 @@ class Player {
 		try {
 			return await db.Player.findByIdAndUpdate(id, data, { new: true });
 		} catch (error) {
-			throw Error(error);
+			logger.log(error);
 		}
 	}
 }
