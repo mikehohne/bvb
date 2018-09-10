@@ -9,7 +9,7 @@ match.createMatch = async (req, res) => {
 		const newMatch = await m.create(data);
 		res.status(200).json({ data: newMatch });
 	} catch (error) {
-		throw Error(error);
+		throw new Error(error);
 	}
 };
 
@@ -19,7 +19,7 @@ match.findMatch = async (req, res) => {
 		const match = await m.find();
 		res.status(200).json({ data: match });
 	} catch (error) {
-		console.log(error);
+		throw new Error(error);
 	}
 };
 
@@ -30,7 +30,7 @@ match.findMatchById = async (req, res) => {
 		const match = await m.findById(id);
 		res.status(200).json({ data: match });
 	} catch (error) {
-		throw Error(error);
+		throw new Error(error);
 	}
 };
 
@@ -42,7 +42,7 @@ match.findMatchByIdAndUpdate = async (req, res) => {
 		const updatedMatch = await m.findByIdAndUpdate(id, data);
 		res.status(200).json({ data: updatedMatch });
 	} catch (error) {
-		throw Error(error);
+		throw new Error(error);
 	}
 };
 

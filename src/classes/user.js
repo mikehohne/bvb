@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 import config from '../config';
 
 import Logger from '../classes/logger';
-const logger = new Logger("User query");
+const logger = new Logger('User query');
 
 // User dal class
 class User {
