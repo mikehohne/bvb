@@ -1,15 +1,15 @@
-import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import config from '../config';
 import User from '../classes/user';
+import bcrypt from 'bcryptjs';
 
 const user = {};
 
 user.register = async (req, res) => {
 	const { username, password } = req.body;
 	const data = {};
-	data.username = username;
-	data.hashedPassword = bcrypt.hashSync(password);
+	data.username = username;	
+	data.hashedPassword = bcrypt.hashSync(password.toString());
 	try {
 		const u = new User();
 		const newUser = await u.create(data);
