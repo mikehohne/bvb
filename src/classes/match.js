@@ -1,7 +1,7 @@
 import db from '../models';
 import Logger from '../classes/logger';
 
-const logger = new Logger("Match query");
+const logger = new Logger('Match query');
 
 class Match {
 

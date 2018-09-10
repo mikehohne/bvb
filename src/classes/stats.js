@@ -1,8 +1,7 @@
 import db from '../models';
 import Logger from '../classes/logger';
 
-const logger = new Logger("Stats query");
-
+const logger = new Logger('Stats query');
 
 // DAL roster class
 class Stats {
