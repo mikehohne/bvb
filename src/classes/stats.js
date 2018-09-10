@@ -1,4 +1,8 @@
 import db from '../models';
+import Logger from '../classes/logger';
+
+const logger = new Logger("Stats query");
+
 
 // DAL roster class
 class Stats {
@@ -11,7 +15,7 @@ class Stats {
 		try {
 			return await db.Stats.find(q);
 		} catch (error) {
-			throw Error(error);
+			logger.log(error);
 		}
 	}
 
@@ -21,7 +25,7 @@ class Stats {
 		try {
 			return await roster.save();
 		} catch (error) {
-			throw Error(error);
+			logger.log(error);
 		}
 	}
 
@@ -32,7 +36,7 @@ class Stats {
 				.populate('player')
 				.populate('match');
 		} catch (error) {
-			throw Error(error);
+			logger.log(error);
 		}
 	}
 
@@ -41,7 +45,7 @@ class Stats {
 		try {
 			return await db.Stats.findByIdAndUpdate(id, data, { new: true });
 		} catch (error) {
-			throw Error(error);
+			logger.log(error);
 		}
 	}
 }

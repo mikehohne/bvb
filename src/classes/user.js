@@ -3,6 +3,9 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import config from '../config';
 
+import Logger from '../classes/logger';
+const logger = new Logger("User query");
+
 // User dal class
 class User {
 
@@ -20,7 +23,7 @@ class User {
 				errorObj.message = 'This username already exists';
 				return errorObj;
 			} else {
-				throw Error(error);
+				logger.log(error);
 			}
 		}
 	}
@@ -52,7 +55,7 @@ class User {
 			}
 
 		} catch (error) {
-			throw Error(error);
+			logger.log(error);
 		}
 	}
 
@@ -61,7 +64,7 @@ class User {
 		try {
 			return await db.User.findById(id);
 		} catch (error) {
-			throw Error(error);
+			logger.log(error);
 		}
 	}
 
@@ -70,7 +73,7 @@ class User {
 		try {
 			return await db.User(id, data, { new: true });
 		} catch (error) {
-			throw Error(error);
+			logger.log(error);
 		}
 	}
 }

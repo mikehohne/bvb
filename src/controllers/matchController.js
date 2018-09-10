@@ -19,7 +19,7 @@ match.findMatch = async (req, res) => {
 		const match = await m.find();
 		res.status(200).json({ data: match });
 	} catch (error) {
-		throw Error(error);
+		console.log(error);
 	}
 };
 

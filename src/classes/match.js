@@ -1,15 +1,19 @@
 import db from '../models';
+import Logger from '../classes/logger';
+
+const logger = new Logger("Match query");
 
 class Match {
 
-	constructor() {}
+	constructor() {
+	}
 
 	async find(query) {
 		const q = query || {};
 		try {
 			return await db.Match.find(q);
 		} catch (error) {
-			throw Error(error);
+			logger.log(error);
 		}
 	}
 
@@ -18,7 +22,7 @@ class Match {
 		try {
 			return await match.save();
 		} catch (error) {
-			throw Error(error);
+			logger.log(error);
 		}
 	}
 
@@ -27,7 +31,7 @@ class Match {
 			return await db.Match.findById(id)
 				.populate('roster');
 		} catch (error) {
-			throw Error(error);
+			logger.log(error);
 		}
 	}
 
@@ -35,7 +39,7 @@ class Match {
 		try {
 			return await db.Match.findByIdAndUpdate(id, data, { new: true });
 		} catch (error) {
-			throw Error(error);
+			logger.log(error);
 		}
 	}
 
