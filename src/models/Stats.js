@@ -13,7 +13,8 @@ const statsSchema = new Schema({
 	fouls: [{ type: Number }],
 	minutesPlayed: Number,
 	dateCreated: { type: Date, default: moment.now() },
-	dateModified: { type: Date }
+	dateModified: { type: Date },
+	subbed: Boolean
 });
 
 const Stats = mongoose.model('Stats', statsSchema);
